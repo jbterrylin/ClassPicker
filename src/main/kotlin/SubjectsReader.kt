@@ -8,10 +8,6 @@ class SubjectsReader {
     var preferTime = mutableListOf<String>()
 
     init {
-        readFromTxt()
-    }
-
-    private fun readFromTxt() {
         val inputStream: InputStream = File("C:\\Users\\lee\\IdeaProjects\\ClassPicker\\src\\main\\resources\\subject_data.txt").inputStream()
         var status = ""
         var subject = Subject()
@@ -20,6 +16,12 @@ class SubjectsReader {
                 it.take(11) == "PreferTime:" -> preferTime = it.drop(11).split(",").map { it1-> it1.trim() }.toMutableList()
                 it.take(8) == "Subject:" -> subject.name = it.drop(8).trim()
                 it.take(12) == "SubjectCode:" -> subject.code = it.drop(12).trim()
+                it.take(9) == "Required:" -> {
+                    val subjectRequiredString = it.drop(9).split("    ").map { it1 -> it1.trim()}.toMutableList()
+                    subjectRequiredString.remove("")
+                    for(e in subjectRequiredString)
+                        subject.required.put(e.split("-")[0],e.split("-")[1].toInt())
+                }
                 it.take(12) == "SubjectTime:" -> status = "SubjectTime"
                 it.take(8) == "Chained:" -> status = "Chained"
                 it.take(10) == "Preferred:" -> status = "Preferred"
@@ -29,11 +31,12 @@ class SubjectsReader {
                             val subjectTimeString = it.split("    ").map { it1 -> it1.trim()}.toMutableList()
                             subjectTimeString.remove("")
                             val subjectTime = SubjectTime()
-                            subjectTime.code = subjectTimeString[0]
-                            subjectTime.day = subjectTimeString[1].toInt()
-                            subjectTime.startTime = LocalTime.parse(subjectTimeString[2], DateTimeFormatter.ofPattern("HH:mm"))
-                            subjectTime.endTime = LocalTime.parse(subjectTimeString[3], DateTimeFormatter.ofPattern("HH:mm"))
-                            subjectTime.location = if(subjectTimeString.size == 5) subjectTimeString[4] else ""
+                            subjectTime.group = subjectTimeString[0]
+                            subjectTime.code = subjectTimeString[1]
+                            subjectTime.day = subjectTimeString[2].toInt()
+                            subjectTime.startTime = LocalTime.parse(subjectTimeString[3], DateTimeFormatter.ofPattern("HH:mm"))
+                            subjectTime.endTime = LocalTime.parse(subjectTimeString[4], DateTimeFormatter.ofPattern("HH:mm"))
+                            subjectTime.location = if(subjectTimeString.size == 6) subjectTimeString[5] else ""
                             subject.subjectTimes.add(subjectTime)
                         }
                         "Chained"-> {

@@ -1,13 +1,18 @@
 PreferTime: FourDay
 PreferTimeExample: FourDay,ThreeDay, HaveSomeBreak
 
+// set unique code and classcode
+
 Subject: Data Management
 SubjectCode: ABC1234
+Required:    A-1    B-3
 SubjectTime:
-    TC01    2    10:00    12:00    FCI2001
-    TC02    2    10:00    12:00    FCI2001
-    TT01    3    10:00    12:00    FCI2001
-    TT02    3    10:00    12:00    FCI2001
+    A    TC01    2    10:00    12:00    FCI2001
+    A    TC02    2    10:00    12:00    FCI2002
+    B    TT01    3    10:00    12:00    FCI2003
+    B    TT02    3    10:00    12:00    FCI2004
+    B    TT01    3    10:00    12:00    FCI2005
+    B    TT02    3    10:00    12:00    FCI2006
 Chained:
     TC01-TT01
 Preferred:
@@ -16,11 +21,12 @@ end
 
 Subject: Data Management
 SubjectCode: ABC1235
+Required:    A-1    B-1
 SubjectTime:
-    TC01    2    10:00    12:00    FCI2001
-    TC02    2    10:00    12:00    FCI2001
-    TT01    3    10:00    12:00
-    TT02    3    10:00    12:00    FCI2001
+    A    TC01    2    10:00    12:00    FCI2005
+    A    TC02    2    10:00    12:00    FCI2006
+    B    TT01    3    10:00    12:00    FCI2007
+    B    TT02    3    10:00    12:00    FCI2008
 Chained:
     TC01-TT01
 Preferred:

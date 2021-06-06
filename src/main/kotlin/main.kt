@@ -1,4 +1,4 @@
 fun main() {
     val subjectsReader = SubjectsReader()
-    Calculator(subjectsReader.subjects, subjectsReader.preferTime)
+    Calculator(subjectsReader.subjects, subjectsReader.preferTime).generateSchedule()
 }
