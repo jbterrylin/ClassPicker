@@ -1,0 +1,28 @@
+PreferTime: FourDay
+PreferTimeExample: FourDay,ThreeDay, HaveSomeBreak
+
+Subject: Data Management
+SubjectCode: ABC1234
+SubjectTime:
+    TC01    2    10:00    12:00    FCI2001
+    TC02    2    10:00    12:00    FCI2001
+    TT01    3    10:00    12:00    FCI2001
+    TT02    3    10:00    12:00    FCI2001
+Chained:
+    TC01-TT01
+Preferred:
+    TC01
+end
+
+Subject: Data Management
+SubjectCode: ABC1235
+SubjectTime:
+    TC01    2    10:00    12:00    FCI2001
+    TC02    2    10:00    12:00    FCI2001
+    TT01    3    10:00    12:00
+    TT02    3    10:00    12:00    FCI2001
+Chained:
+    TC01-TT01
+Preferred:
+    TC01
+end
