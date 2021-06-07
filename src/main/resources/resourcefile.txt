@@ -1,0 +1,6 @@
+combination without repeat algorithm
+https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
+https://www.geeksforgeeks.org/combinations-with-repetitions/
+
+Cartesian Product (list * list)
+https://stackoverflow.com/questions/46895140/how-to-perform-action-for-all-combinations-of-elements-in-lists

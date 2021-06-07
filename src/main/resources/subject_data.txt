@@ -5,7 +5,7 @@ PreferTimeExample: FourDay,ThreeDay, HaveSomeBreak
 
 Subject: Data Management
 SubjectCode: ABC1234
-Required:    A-1    B-3
+Required:    A-1    B-2    C-1
 SubjectTime:
     A    TC01    2    10:00    12:00    FCI2001
     A    TC02    2    10:00    12:00    FCI2002
@@ -13,6 +13,8 @@ SubjectTime:
     B    TT02    3    10:00    12:00    FCI2004
     B    TT01    3    10:00    12:00    FCI2005
     B    TT02    3    10:00    12:00    FCI2006
+    C    TC01    2    10:00    12:00    FCI2007
+    C    TC02    2    10:00    12:00    FCI2008
 Chained:
     TC01-TT01
 Preferred:
