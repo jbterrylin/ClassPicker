@@ -2,7 +2,7 @@ PreferTime: FourDay
 PreferTimeExample: FourDay,ThreeDay, HaveSomeBreak
 
 MustTake:    ABC    XYZ
-OptionalNeeded:    1
+OptionalNeeded: 1
 
 //Rule:
 //      - if class until 24:00, pls write as 23:59
@@ -10,7 +10,7 @@ OptionalNeeded:    1
             -e.x: TC01,TT01
 
 //ToDo:
-//      - set unique code and classcode
+//      - set unique code and class code
 
 Subject: Data Management
 SubjectCode: ABC
@@ -45,7 +45,7 @@ Preferred:
 end
 
 Subject: Data Management
-SubjectCode: XYZ
+SubjectCode: 123
 Required:    A-1
 SubjectTime:
     A    TC01    5    10:00    12:00    123

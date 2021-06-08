@@ -1,12 +1,17 @@
 import java.time.LocalTime
 
-class Calculator(private var subjects: MutableList<Subject>, private var  preferTime: MutableList<String>) {
+class Calculator(private var subjects: MutableList<Subject>, private var  preferTime: MutableList<String>,
+                 private var mustTakeSubjectCodes: List<String>, private var optionalNeeded: Int) {
     fun generateSchedule() {
         println(preferTime)
-        var allSubjectTimeList: MutableList<MutableList<SubjectTime>>? = null
-        subjects.forEachIndexed { index, subject ->
-            val subjectTimeList = combineTime(subject)
-            allSubjectTimeList = allSubjectTimeList?.let { combineSubjectTimeList(it, subjectTimeList, index+1) } ?: subjectTimeList
+//        var finalSubjectTimeList: MutableList<MutableList<SubjectTime>>? = null
+        var mustSubjectTimeList: MutableList<MutableList<SubjectTime>>? = null
+        subjects.filter { mustTakeSubjectCodes.contains(it.code) }.forEachIndexed { index, subject ->
+            val subjectTimes = combineTime(subject)
+            mustSubjectTimeList = mustSubjectTimeList?.let { combineSubjectTimeList(it, subjectTimes, index+1) } ?: subjectTimes
+        }
+        if(optionalNeeded != 0){
+            println("continue")
         }
     }
 
@@ -137,14 +142,12 @@ class Calculator(private var subjects: MutableList<Subject>, private var  prefer
 
         subjectTimeList.clear()
         for(groupedTimes in groupedTimeList) {
-            val groups = groupedTimes.map { it[0].subjectCode }.toMutableList()
-            if(groups.distinct().size == totalSubject) {
+            val groups = groupedTimes.flatten().map { it.subjectCode }.distinct().toMutableList()
+            if(groups.distinct().size == totalSubject)
                 if (!isClashTime(groupedTimes.flatten()))
                     subjectTimeList.add(groupedTimes.flatten().toMutableList())
-            }
         }
 
-//        subjectTimeList.forEach { println(it.map { it.subjectCode + " " + it.location }) }
         return subjectTimeList
     }
 }

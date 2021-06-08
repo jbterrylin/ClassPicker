@@ -45,7 +45,7 @@ Preferred:
 end
 
 Subject: Data Management
-SubjectCode: XYZ
+SubjectCode: 123
 Required:    A-1
 SubjectTime:
     A    TC01    5    10:00    12:00    123
