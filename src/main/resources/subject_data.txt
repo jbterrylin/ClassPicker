@@ -1,21 +1,43 @@
 PreferTime: FourDay
 PreferTimeExample: FourDay,ThreeDay, HaveSomeBreak
+
+MustTake:    ABC    XYZ
+OptionalNeeded:    1
+
 //Rule:
 //      - if class until 24:00, pls write as 23:59
-// set unique code and classcode
-B-2    C-1
+//      - if u need to take 2 same class code, pls write 2 time in chained
+            -e.x: TC01,TT01
+
+//ToDo:
+//      - set unique code and classcode
+
 Subject: Data Management
-SubjectCode: ABC1234
+SubjectCode: ABC
 Required:    A-1    B-2
 SubjectTime:
-//    A    TC01    2    10:00    12:00    FCI2001
+    A    TC01    3    10:00    12:00    FCI2001
     A    TC02    3    10:00    12:00    FCI2002
-    B    TT02    3    10:00    12:00    FCI2003
     B    TT02    3    12:00    14:00    FCI2004
     B    TT01    3    20:00    20:00    FCI2005
-    B    TT01    3    20:00    03:00    FCI2006
+    B    TT03    3    20:00    03:00    FCI2006
 //    C    TC01    2    10:00    12:00    FCI2007
 //    C    TC02    2    10:00    12:00    FCI2008
+Chained:
+    TC01    TC02,TT03,TT02
+Preferred:
+    TC01
+end
+
+Subject: Data Management
+SubjectCode: XYZ
+Required:    A-1    B-2
+SubjectTime:
+//    A    TC01    4    10:00    12:00    FCI2005
+    A    TC02    4    10:00    12:00    FCI1
+    B    TT02    3    12:00    14:00    FCI2
+    B    TT01    4    20:00    22:00    FCI3
+    B    TT02    4    22:00    24:00    FCI4
 Chained:
     TC01-TT01
 Preferred:
@@ -23,15 +45,11 @@ Preferred:
 end
 
 Subject: Data Management
-SubjectCode: ABC1235
-Required:    A-1    B-2
+SubjectCode: XYZ
+Required:    A-1
 SubjectTime:
-//    A    TC01    2    10:00    12:00    FCI2005
-//    A    TC02    2    10:00    12:00    FCI2006
-//    B    TT01    3    10:00    12:00    FCI2003
-    B    TT02    3    14:00    16:00    FCI2004
-    B    TT01    3    20:00    22:00    FCI2005
-    B    TT02    3    22:00    24:00    FCI2006
+    A    TC01    5    10:00    12:00    123
+    A    TC02    5    10:00    12:00    456
 Chained:
     TC01-TT01
 Preferred:

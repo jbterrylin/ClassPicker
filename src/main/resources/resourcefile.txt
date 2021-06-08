@@ -4,3 +4,19 @@ https://www.geeksforgeeks.org/combinations-with-repetitions/
 
 Cartesian Product (list * list)
 https://stackoverflow.com/questions/46895140/how-to-perform-action-for-all-combinations-of-elements-in-lists
+
+combinationUtil explanation
+    /* arr[]  ---> Input Array
+    data[] ---> Temporary array to store current combination
+    start & end ---> Staring and Ending indexes in arr[]
+    index  ---> Current index in data[]
+    r ---> Size of a combination to be printed */
+
+    // Current combination is ready to be printed, print it
+    if (index == r) {...
+
+   // replace index with all possible elements. The condition
+   // "end-i+1 >= r-index" makes sure that including one element
+   // at index will make a combination with remaining elements
+   // at remaining positions
+   var i = start...

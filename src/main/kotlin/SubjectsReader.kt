@@ -20,7 +20,7 @@ class SubjectsReader {
                     val subjectRequiredString = it.drop(9).split("    ").map { it1 -> it1.trim()}.toMutableList()
                     subjectRequiredString.remove("")
                     for(e in subjectRequiredString)
-                        subject.required.put(e.split("-")[0],e.split("-")[1].toInt())
+                        subject.required[e.split("-")[0]] = e.split("-")[1].toInt()
                 }
                 it.take(12) == "SubjectTime:" -> status = "SubjectTime"
                 it.take(8) == "Chained:" -> status = "Chained"
@@ -31,6 +31,7 @@ class SubjectsReader {
                             val subjectTimeString = it.split("    ").map { it1 -> it1.trim()}.toMutableList()
                             subjectTimeString.remove("")
                             val subjectTime = SubjectTime()
+                            subjectTime.subjectCode = subject.code
                             subjectTime.group = subjectTimeString[0]
                             subjectTime.code = subjectTimeString[1]
                             subjectTime.day = subjectTimeString[2].toInt()
@@ -43,7 +44,7 @@ class SubjectsReader {
                             val subjectTimeString = it.split("    ").map { it1 -> it1.trim()}.toMutableList()
                             subjectTimeString.remove("")
                             for(e in subjectTimeString)
-                                subject.chained.add(mutableListOf(e.split("-")[0],e.split("-")[1]))
+                                subject.chained.add(e.split(",").sorted())
                         }
                         "Preferred"-> {
                             subject.preferred = it.split("    ").map { it1 -> it1.trim()}.toMutableList()

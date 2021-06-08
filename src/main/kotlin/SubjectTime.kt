@@ -1,6 +1,7 @@
 import java.time.LocalTime
 
 class SubjectTime {
+    var subjectCode: String =  ""
     var group: String =  ""
     var code: String =  ""
     var day: Int =  0 
