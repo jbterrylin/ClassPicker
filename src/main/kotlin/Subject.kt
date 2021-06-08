@@ -1,3 +1,5 @@
+import java.time.LocalTime
+
 class Subject {
     var name: String =  ""  
     var code: String =  ""
@@ -64,15 +66,47 @@ class Subject {
         return combinationUtil2dList(arr, Array(r, init= { mutableListOf() }), 0, n - 1, 0, r, mutableListOf())
     }
 
-    fun combineTime() {
+    private fun isClashTime(subjectTimes: List<SubjectTime>):Boolean {
+        val timesByDay = subjectTimes.groupBy { it.day }
+        for(mutableEntry in timesByDay) {
+            val values = mutableEntry.value.sortedBy { it.startTime }
+            var lastEndTime: LocalTime? = null
+            values.forEach {
+                lastEndTime = if(lastEndTime == null) {
+                    if(values.size > 1 && it.endTime.isBefore(it.startTime)) return true
+                    it.endTime
+                } else {
+                    if (it.endTime.isBefore(it.startTime)) {
+                        if (!timesByDay[mutableEntry.key + 1].isNullOrEmpty()) {
+                            // last class clash with next day first class
+                            val nextDayFirstClass =
+                                timesByDay[mutableEntry.key + 1]?.sortedBy { it1 -> it1.startTime }?.get(0)?.startTime
+                            if (it.endTime.isAfter(nextDayFirstClass)) return true
+                        }
+                        // the class that across 2 day is not last class
+                        if (it != values.last()) return true
+                    }
+                    // last class end time is after next class start time
+                    if (lastEndTime!!.isAfter(it.startTime)) return true
+                    it.endTime
+                }
+            }
+        }
+        return false
+    }
+
+    fun combineTime(): MutableList<MutableList<SubjectTime>> {
         val subjectTimeList = mutableListOf<MutableList<SubjectTime>>()
         val timeList = mutableListOf<MutableList<MutableList<SubjectTime>>>()
+
+        //group for same group (if group b need 2, get all combination for)
         for (mutableEntry in required) {
             val arr = subjectTimes.filter { it.group == mutableEntry.key }.toTypedArray()
             val r = mutableEntry.value
             val n = arr.size
-            val a = combination(arr, n, r)
-            timeList.add(a)
+            val times = combination(arr, n, r)
+            times.removeIf { isClashTime(it) }
+            timeList.add(times)
         }
 
         val arr = timeList.flatten().toTypedArray()
@@ -80,17 +114,13 @@ class Subject {
         val n = arr.size
         val groupedTimeList = combination2dList(arr, n, r)
 
-        // remove clash time combination
-
         for(groupedTimes in groupedTimeList) {
             val groups = groupedTimes.map { it[0].group }.toMutableList()
             if(groups.distinct().size == groups.size)
-                subjectTimeList.add(groupedTimes.flatten().toMutableList())
+                if(!isClashTime(groupedTimes.flatten()))
+                    subjectTimeList.add(groupedTimes.flatten().toMutableList())
         }
-        println(subjectTimeList.size)
-        for(a in subjectTimeList) {
-            println(a.map { it.location })
-        }
-        println("end")
+
+        return subjectTimeList
     }
 }
