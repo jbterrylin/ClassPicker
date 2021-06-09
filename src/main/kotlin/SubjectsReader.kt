@@ -16,7 +16,7 @@ class SubjectsReader {
         inputStream.bufferedReader().forEachLine {
             when {
                 it.take(11) == "PreferTime:" -> preferTime = it.drop(11).split(",").map { it1-> it1.trim() }.toMutableList()
-                it.take(9) == "MustTake:" -> mustTakeSubjectCodes = it.drop(9).split("    ").map { it1 -> it1.trim()}
+                it.take(9) == "MustTake:" -> mustTakeSubjectCodes = it.drop(9).split("    ").map { it1 -> it1.trim() }.filter { it1 -> it1.isNotBlank() }
                 it.take(15) == "OptionalNeeded:" -> optionalNeeded = it.drop(15).trim().toInt()
                 it.take(8) == "Subject:" -> subject.name = it.drop(8).trim()
                 it.take(12) == "SubjectCode:" -> subject.code = it.drop(12).trim()

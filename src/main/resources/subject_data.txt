@@ -1,8 +1,8 @@
 PreferTime: FourDay
 PreferTimeExample: FourDay,ThreeDay, HaveSomeBreak
 
-MustTake:    ABC    XYZ
-OptionalNeeded: 1
+MustTake:    qwe
+OptionalNeeded: 3
 
 //Rule:
 //      - if class until 24:00, pls write as 23:59
@@ -11,6 +11,24 @@ OptionalNeeded: 1
 
 //ToDo:
 //      - set unique code and class code
+//      - think about chain part, check first variable already enough? (calculator line 152)
+
+Subject: Data Management
+SubjectCode: qwe
+Required:    A-1    B-2
+SubjectTime:
+    A    TC01    1    10:00    12:00    FCI2001
+    A    TC02    1    10:00    12:00    FCI2002
+    B    TT02    1    12:00    14:00    FCI2004
+    B    TT01    1    20:00    20:00    FCI2005
+    B    TT03    1    20:00    03:00    FCI2006
+//    C    TC01    2    10:00    12:00    FCI2007
+//    C    TC02    2    10:00    12:00    FCI2008
+Chained:
+    TC01    TC02,TT03,TT02
+Preferred:
+    TC01
+end
 
 Subject: Data Management
 SubjectCode: ABC
@@ -35,7 +53,7 @@ Required:    A-1    B-2
 SubjectTime:
 //    A    TC01    4    10:00    12:00    FCI2005
     A    TC02    4    10:00    12:00    FCI1
-    B    TT02    3    12:00    14:00    FCI2
+    B    TT02    4    12:00    14:00    FCI2
     B    TT01    4    20:00    22:00    FCI3
     B    TT02    4    22:00    24:00    FCI4
 Chained:
@@ -49,7 +67,7 @@ SubjectCode: 123
 Required:    A-1
 SubjectTime:
     A    TC01    5    10:00    12:00    123
-    A    TC02    5    10:00    12:00    456
+    A    TC02    5    12:00    14:00    456
 Chained:
     TC01-TT01
 Preferred:

@@ -1,4 +1,5 @@
 fun main() {
     val subjectsReader = SubjectsReader()
-    Calculator(subjectsReader.subjects, subjectsReader.preferTime, subjectsReader.mustTakeSubjectCodes, subjectsReader.optionalNeeded).generateSchedule()
+    val result = Calculator(subjectsReader.subjects, subjectsReader.preferTime, subjectsReader.optionalNeeded).generateSchedule()
+    OutputGenerator(result).generate()
 }

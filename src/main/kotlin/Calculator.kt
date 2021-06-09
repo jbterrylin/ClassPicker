@@ -1,17 +1,47 @@
 import java.time.LocalTime
 
-class Calculator(private var subjects: MutableList<Subject>, private var  preferTime: MutableList<String>,
+class Calculator(private var subjects: MutableList<Subject>,
                  private var mustTakeSubjectCodes: List<String>, private var optionalNeeded: Int) {
-    fun generateSchedule() {
-        println(preferTime)
-//        var finalSubjectTimeList: MutableList<MutableList<SubjectTime>>? = null
+    fun generateSchedule(): MutableList<MutableList<SubjectTime>>? {
         var mustSubjectTimeList: MutableList<MutableList<SubjectTime>>? = null
         subjects.filter { mustTakeSubjectCodes.contains(it.code) }.forEachIndexed { index, subject ->
             val subjectTimes = combineTime(subject)
-            mustSubjectTimeList = mustSubjectTimeList?.let { combineSubjectTimeList(it, subjectTimes, index+1) } ?: subjectTimes
+            mustSubjectTimeList =
+                mustSubjectTimeList?.let { combineSubjectTimeList(it, subjectTimes, index + 1) } ?: subjectTimes
         }
-        if(optionalNeeded != 0){
-            println("continue")
+
+        val notMustSubjectTimes = mutableMapOf<String, MutableList<MutableList<SubjectTime>>>()
+        subjects.filter { !mustTakeSubjectCodes.contains(it.code) }.forEach { subject ->
+            notMustSubjectTimes[subject.code] = combineTime(subject)
+        }
+
+        val arr =
+            subjects.filter { !mustTakeSubjectCodes.contains(it.code) }.map { it.subjectTimes[0] }.toTypedArray()
+        val r = optionalNeeded
+        val n = arr.size
+        val notMustSubjectCodeList = combination(arr, n, r).map { it.map { it1 -> it1.subjectCode } }
+
+        val notMustSubjectTimeList = mutableListOf<MutableList<MutableList<SubjectTime>>>()
+        for (subjectCodeList in notMustSubjectCodeList) {
+            var temp = mutableListOf<MutableList<SubjectTime>>()
+            for (subjectCode in subjectCodeList.withIndex()) {
+                temp = if (temp.size == 0) {
+                    notMustSubjectTimes[subjectCode.value]!!
+                } else {
+                    combineSubjectTimeList(
+                        temp,
+                        notMustSubjectTimes[subjectCode.value]!!, subjectCode.index + 1
+                    )
+                }
+            }
+            notMustSubjectTimeList.add(temp)
+        }
+
+        return mustSubjectTimeList?.let {
+            combineSubjectTimeList(
+                it.toMutableList(),
+                notMustSubjectTimeList.flatten().toMutableList(), mustTakeSubjectCodes.size + optionalNeeded
+            )
         }
     }
 
@@ -50,7 +80,7 @@ class Calculator(private var subjects: MutableList<Subject>, private var  prefer
 
         var i = start
         while (i <= end && end - i + 1 >= r - index) {
-            data[index]=(arr[i])
+            data[index] = arr[i]
             combinationUtil2dList(arr, data, i + 1, end, index + 1, r, result)
             i++
         }
