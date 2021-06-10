@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter
 
 class SubjectsReader {
     var subjects = mutableListOf<Subject>()
-    var preferTime = mutableListOf<String>()
     var mustTakeSubjectCodes = listOf<String>()
     var optionalNeeded = 0
 
@@ -15,7 +14,6 @@ class SubjectsReader {
         var subject = Subject()
         inputStream.bufferedReader().forEachLine {
             when {
-                it.take(11) == "PreferTime:" -> preferTime = it.drop(11).split(",").map { it1-> it1.trim() }.toMutableList()
                 it.take(9) == "MustTake:" -> mustTakeSubjectCodes = it.drop(9).split("    ").map { it1 -> it1.trim() }.filter { it1 -> it1.isNotBlank() }
                 it.take(15) == "OptionalNeeded:" -> optionalNeeded = it.drop(15).trim().toInt()
                 it.take(8) == "Subject:" -> subject.name = it.drop(8).trim()

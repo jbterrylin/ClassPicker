@@ -1,3 +1,6 @@
+Cheat Sheet
+https://blog.kotlin-academy.com/kotlin-cheat-sheet-1137588c75a
+
 combination without repeat algorithm
 https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
 https://www.geeksforgeeks.org/combinations-with-repetitions/
@@ -20,3 +23,10 @@ combinationUtil explanation
    // at index will make a combination with remaining elements
    // at remaining positions
    var i = start...
+
+// output file and folder
+https://zetcode.com/kotlin/writefile/
+https://stackoverflow.com/questions/60004199/creating-a-folder-in-kotlin
+
+// csv shit
+https://grokonez.com/kotlin/kotlin-read-write-csv-file-example

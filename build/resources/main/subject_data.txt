@@ -1,16 +1,20 @@
-PreferTime: FourDay
-PreferTimeExample: FourDay,ThreeDay, HaveSomeBreak
+PreferTimeExampleOnGoing:, HaveSomeBreak, LunchBreak, FuckLunch,
+            BackHomeEarly, BackKampungEarly, MySchoolIsBig
 
 MustTake:    qwe
 OptionalNeeded: 3
 
 //Rule:
-//      - if class until 24:00, pls write as 23:59
 //      - if u need to take 2 same class code, pls write 2 time in chained
             -e.x: TC01,TT01
 
 //ToDo:
 //      - set unique code and class code
+//      - output a csv for show about prefer time for each file
+//      - think about chain part, check first variable already enough? (calculator line 152)
+//      - Find way to show first class and last class time
+//          - how to get first day of working
+//              - if someone study 1-5, then ez,what if someone study 5-2, normal logic will make first class become 1's first class not 5's first class
 
 Subject: Data Management
 SubjectCode: qwe
