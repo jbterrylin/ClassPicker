@@ -120,13 +120,20 @@ class OutputGenerator(private var timeList: MutableList<MutableList<SubjectTime>
 
         for(times in timeList?.withIndex()!!) {
             val outputFile = File("$folderPath/$folderName/${times.index}.txt")
-            val timeMap = times.value.groupBy { it.day }
+
             outputFile.printWriter().use { out ->
                 out.println(times.value.map { it.subjectCode }.distinct().toString() + "\n")
-                for(time in timeMap) {
+                for(subjects in times.value.groupBy { it.subjectCode }) {
+                    out.println(subjects.key + "=" + subjects.value.map { it.code })
+                }
+                out.println("")
+
+                for(time in times.value.groupBy { it.day }) {
                     out.println(time.key.toString())
-                    out.println(time.value.map { it.subjectCode + " " + it.code + " " +  it.day + " " +  it.startTime + " " +  it.endTime + "\n"}.toString().filter { it != '[' || it != ']' }.toString())
-                    out.println("\n")
+                    time.value.forEach {
+                        out.println(it.subjectCode + " " + it.code + " " +  it.startTime + "-" +  it.endTime)
+                    }
+                    out.println("")
                 }
             }
         }

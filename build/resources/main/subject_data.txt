@@ -1,17 +1,15 @@
 PreferTimeExampleOnGoing:, HaveSomeBreak, LunchBreak, FuckLunch,
             BackHomeEarly, BackKampungEarly, MySchoolIsBig
 
-MustTake:    qwe
-OptionalNeeded: 3
+MustTake:    qwe    ABC    XYZ    123
+OptionalNeeded: 0
 
 //Rule:
 //      - if u need to take 2 same class code, pls write 2 time in chained
-            -e.x: TC01,TT01
+            -e.x: TC01,TT01,TTO1
 
 //ToDo:
-//      - set unique code and class code
-//      - output a csv for show about prefer time for each file
-//      - think about chain part, check first variable already enough? (calculator line 152)
+//      - prefer class
 //      - Find way to show first class and last class time
 //          - how to get first day of working
 //              - if someone study 1-5, then ez,what if someone study 5-2, normal logic will make first class become 1's first class not 5's first class
@@ -25,10 +23,10 @@ SubjectTime:
     B    TT02    1    12:00    14:00    FCI2004
     B    TT01    1    20:00    20:00    FCI2005
     B    TT03    1    20:00    03:00    FCI2006
-//    C    TC01    2    10:00    12:00    FCI2007
-//    C    TC02    2    10:00    12:00    FCI2008
+    C    TC01    2    10:00    12:00    FCI2007
+    C    TC02    2    10:00    12:00    FCI2008
 Chained:
-    TC01    TC02,TT03,TT02
+    TC01-TT02/TT01    TC02-TT03,TT02
 Preferred:
     TC01
 end
@@ -45,7 +43,7 @@ SubjectTime:
 //    C    TC01    2    10:00    12:00    FCI2007
 //    C    TC02    2    10:00    12:00    FCI2008
 Chained:
-    TC01    TC02,TT03,TT02
+    TC02-TT03,TT02
 Preferred:
     TC01
 end
@@ -58,9 +56,9 @@ SubjectTime:
     A    TC02    4    10:00    12:00    FCI1
     B    TT02    4    12:00    14:00    FCI2
     B    TT01    4    20:00    22:00    FCI3
-    B    TT02    4    22:00    24:00    FCI4
+    B    TT03    4    22:00    24:00    FCI4
 Chained:
-    TC01-TT01
+    TC02-TT02,TT01/TT02,TT03
 Preferred:
     TC01
 end

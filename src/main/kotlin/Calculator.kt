@@ -36,13 +36,15 @@ class Calculator(private var subjects: MutableList<Subject>,
             }
             notMustSubjectTimeList.add(temp)
         }
-
-        return mustSubjectTimeList?.let {
-            combineSubjectTimeList(
-                it.toMutableList(),
-                notMustSubjectTimeList.flatten().toMutableList(), mustTakeSubjectCodes.size + optionalNeeded
-            )
-        }
+        return if(notMustSubjectTimeList.flatten().isNotEmpty())
+            mustSubjectTimeList?.let {
+                combineSubjectTimeList(
+                    it.toMutableList(),
+                    notMustSubjectTimeList.flatten().toMutableList(), mustTakeSubjectCodes.size + optionalNeeded
+                )
+            }
+        else
+            mustSubjectTimeList
     }
 
     private fun combinationUtil (
@@ -150,10 +152,9 @@ class Calculator(private var subjects: MutableList<Subject>,
         for(subjectTimes in subjectTimeList.toMutableList()) {
             val codes = subjectTimes.map { it.code }
             for (chainedCodes in subject.chained) {
-                if(codes.contains(chainedCodes[0]))
-                    if(codes.filter {chainedCodes.contains(it) }.size != chainedCodes.size) {
+                if(codes.contains(chainedCodes.key))
+                    if(!chainedCodes.value.any { codes.containsAll(it+chainedCodes.key) })
                         subjectTimeList.remove(subjectTimes)
-                    }
             }
         }
 

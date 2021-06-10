@@ -46,7 +46,8 @@ class SubjectsReader {
                             val subjectTimeString = it.split("    ").map { it1 -> it1.trim()}.toMutableList()
                             subjectTimeString.remove("")
                             for(e in subjectTimeString)
-                                subject.chained.add(e.split(",").sorted())
+                                subject.chained[e.split("-")[0]] =
+                                        e.split("-")[1].split("/").map { it1 -> it1.split(",").toMutableList() }.toMutableList()
                         }
                         "Preferred"-> {
                             subject.preferred = it.split("    ").map { it1 -> it1.trim()}.toMutableList()
