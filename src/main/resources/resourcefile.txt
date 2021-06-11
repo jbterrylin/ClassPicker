@@ -30,3 +30,7 @@ https://stackoverflow.com/questions/60004199/creating-a-folder-in-kotlin
 
 // csv shit
 https://grokonez.com/kotlin/kotlin-read-write-csv-file-example
+
+// if meet this error
+error: RPC failed; curl 56 OpenSSL SSL_read: Connection was reset, errno 10054
+solve command: git config http.postBuffer 524288000
