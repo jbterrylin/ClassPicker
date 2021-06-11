@@ -5,10 +5,11 @@ MustTake:    qwe    ABC    XYZ    123
 OptionalNeeded: 0
 
 //Rule:
-//      - if u need to take 2 same class code, pls write 2 time in chained
-            -e.x: TC01,TT01,TTO1
+//      - chained explanation
+//      - e.x: TC01-TT01,TT01/TT02,TT03/TT04
+//          - it mean if schedule have TC01, it must have 2 TC01 or TT02,TT03 or TT04
 
-//ToDo:
+//ToUpdate:
 //      - prefer class
 //      - Find way to show first class and last class time
 //          - how to get first day of working

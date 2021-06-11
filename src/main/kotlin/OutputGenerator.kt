@@ -2,8 +2,10 @@ import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 
-class OutputGenerator(private var timeList: MutableList<MutableList<SubjectTime>>?) {
+
+class OutputGenerator(private var subjects: MutableList<Subject>, private var timeList: MutableList<MutableList<SubjectTime>>?) {
     private val folderPath = "src/main/resources"
     private val folderName = "output"
     private val startTime = mutableMapOf<Int, MutableList<LocalTime>>()
@@ -56,6 +58,9 @@ class OutputGenerator(private var timeList: MutableList<MutableList<SubjectTime>
             fileWriter.append("Note: \n")
             fileWriter.append("\tstart time and end time column is according index(dunno can ask it friend)\n")
             fileWriter.append("\tList inside column is sort according day\n")
+            fileWriter.append("\tstudy percentage high mean u don't have many rest time when study\n")
+            fileWriter.append("\t\te.x: if u study straight 10 hour without rest then study percentage is 100\n")
+            fileWriter.append("\t\te.x: if u study straight 8 hour with 2 hour rest then study percentage is 80\n")
 
             fileWriter.append("start time: \n")
                 for(time in startTime) {
@@ -72,10 +77,13 @@ class OutputGenerator(private var timeList: MutableList<MutableList<SubjectTime>
                 fileWriter.append("\""+n.key.toString() + "-" + n.value.toString() + "\"")
                 fileWriter.append("\n")
             }
-            fileWriter.append("mostShortDay: $mostShortDay")
+            if(mostShortDay == Int.MAX_VALUE)
+                fileWriter.append("mostShortDay: 0")
+            else
+                fileWriter.append("mostShortDay: $mostShortDay")
             fileWriter.append("\n")
             fileWriter.append("\n")
-            fileWriter.append("file Id, days, duration, start times, end times, n of classes, subjects")
+            fileWriter.append("file Id, days, duration, start times, end times, n of classes, n of prefer class, subjects, study percentage(study time/(end of day-start of day))")
             fileWriter.append("\n")
 
             for (times in timeList!!.withIndex()) {
@@ -93,8 +101,34 @@ class OutputGenerator(private var timeList: MutableList<MutableList<SubjectTime>
                 fileWriter.append(',')
                 fileWriter.append("\"" + timeMap.map { it.value.size }.toString() +"\"")   // n of classes
                 fileWriter.append(',')
-                fileWriter.append("\"" + times.value.map { it.subjectCode }.distinct().toString() +"\"")   // n of classes
-
+                var preferClass = 0
+                for(subjectMap in times.value.groupBy { it.subjectCode }) {
+                    preferClass+=subjectMap.value.map { it.code }.filter {
+                        subjects.filter { it1 -> it1.code == subjectMap.key }[0].preferred.contains(it)
+                    }.size
+                }
+                fileWriter.append(preferClass.toString())    // prefer class
+                fileWriter.append(',')
+                fileWriter.append("\"" + times.value.map { it.subjectCode }.distinct().toString() +"\"")    // subjects
+                fileWriter.append(',')
+                // those if is for last class that over 12.00am
+                fileWriter.append(
+                    (timeMap.map {
+                        it.value.sumOf { it1 ->
+                            if(it1.endTime.isBefore(it1.startTime)) {
+                                (24*60) + ChronoUnit.MINUTES.between(it1.startTime , it1.endTime)
+                            } else {
+                                ChronoUnit.MINUTES.between(it1.startTime , it1.endTime)
+                            }
+                        } /
+                                (
+                                        if(it.value.last().endTime.isBefore(it.value.first().startTime))
+                                            (24*60) + ChronoUnit.MINUTES.between(it.value.first().startTime, it.value.last().endTime).toFloat()
+                                        else
+                                            ChronoUnit.MINUTES.between(it.value.first().startTime, it.value.last().endTime).toFloat()
+                                        )
+                    }.sum() / timeMap.size * 100).toInt().toString()
+                )    // study time/(end of day-start of day)
                 fileWriter.append("\n")
             }
 
