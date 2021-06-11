@@ -9,7 +9,7 @@ class SubjectsReader {
     var optionalNeeded = 0
 
     init {
-        val inputStream: InputStream = File("C:\\Users\\lee\\IdeaProjects\\ClassPicker\\src\\main\\resources\\subject_data.txt").inputStream()
+        val inputStream: InputStream = File("src/main/resources/subject_data.txt").inputStream()
         var status = ""
         var subject = Subject()
         inputStream.bufferedReader().forEachLine {
