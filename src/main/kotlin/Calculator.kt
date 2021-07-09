@@ -36,6 +36,12 @@ class Calculator(private var subjects: MutableList<Subject>,
             }
             notMustSubjectTimeList.add(temp)
         }
+
+
+        if(mustSubjectTimeList == null && mustTakeSubjectCodes.isEmpty()) {
+            return notMustSubjectTimeList.flatten().toMutableList()
+        }
+
         return if(notMustSubjectTimeList.flatten().isNotEmpty())
             mustSubjectTimeList?.let {
                 combineSubjectTimeList(
@@ -171,14 +177,14 @@ class Calculator(private var subjects: MutableList<Subject>,
         val n = arr.size
         val groupedTimeList = combination2dList(arr, n, r)
 
-        subjectTimeList.clear()
+        val result = mutableListOf<MutableList<SubjectTime>>()
         for(groupedTimes in groupedTimeList) {
             val groups = groupedTimes.flatten().map { it.subjectCode }.distinct().toMutableList()
             if(groups.distinct().size == totalSubject)
                 if (!isClashTime(groupedTimes.flatten()))
-                    subjectTimeList.add(groupedTimes.flatten().toMutableList())
+                    result.add(groupedTimes.flatten().toMutableList())
         }
 
-        return subjectTimeList
+        return result
     }
 }

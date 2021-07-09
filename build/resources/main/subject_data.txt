@@ -1,0 +1,93 @@
+MustTake:   DS3301
+OptionalNeeded: 3
+
+//Rule:
+//      - chained explanation
+//      - e.x: TC01-TT01,TT01/TT02,TT03/TT04
+//          - it mean if schedule have TC01, it must have 2 TC01 or TT02,TT03 or TT04
+
+Subject: DATA MINING
+SubjectCode: DS3301
+Required:    A-1    B-1
+SubjectTime:
+    A    TC1V    1    08:00    10:00    FCI2001
+    A    TC2V    2    08:00    10:00    FCI2001
+    B    TT1V    5    10:00    12:00    FCI2001
+    A    TT2V    3    10:00    12:00    FCI2001
+    B    TT3V    4    10:00    12:00    FCI2001
+Chained:
+    TC1V-TT1V    TT2V-TT1V    TC2V-TT3V
+Preferred:
+end
+
+Subject: VISUAL INFORMATION PROCESSING
+SubjectCode: DS3651
+Required:    A-1    B-1
+SubjectTime:
+    A    TC1V    1    14:00    16:00    FCI2001
+    B    TT1V    3    16:00    18:00    FCI2001
+Chained:
+Preferred:
+end
+
+Subject: PROGRAMMING LANGUAGE TRANSLATION
+SubjectCode: CP2451
+Required:    A-1    B-1
+SubjectTime:
+    A    TC1V    1    16:00    18:00    FCI2001
+    B    TT1V    3    14:00    16:00    FCI2001
+Chained:
+Preferred:
+end
+
+//Subject: SOFTWARE EVOLUTION AND MAINTENANCE
+//SubjectCode: SE3351
+//Required:    A-1    B-1
+//SubjectTime:
+//    A    TC1V    1    08:00    10:00    FCI2001
+//    B    TT1V    3    16:00    18:00    FCI2001
+//Chained:
+//Preferred:
+//end
+
+//Subject: GAME PHYSICS
+//SubjectCode: GD2251
+//Required:    A-1    B-1
+//SubjectTime:
+//    A    TC1V    1    14:00    16:00    FCI2001
+//    B    TT1V    3    16:00    18:00    FCI2001
+//Chained:
+//Preferred:
+//end
+
+//Subject: SOCIAL MEDIA COMPUTING
+//SubjectCode: DS3751
+//Required:    A-1    B-1
+//SubjectTime:
+//    A    TC1V    1    10:00    12:00    FCI2001
+//    B    TT1V    4    08:00    10:00    FCI2001
+//Chained:
+//Preferred:
+//end
+
+Subject: DIGITAL AND COMPUTER FORENSICS
+SubjectCode: CS3551
+Required:    A-1    B-1
+SubjectTime:
+    A    TC1V    1    08:00    10:00    FCI2001
+    B    TT1V    5    16:30    18:30    FCI2001
+Chained:
+Preferred:
+end
+
+//Subject: Data Management
+//SubjectCode: 123
+//Required:    A-1
+//SubjectTime:
+//    A    TC01    5    10:00    12:00    123
+//    A    TC02    5    12:00    14:00    456
+//Chained:
+//    TC01-TC02
+//Preferred:
+//    TC01
+//end

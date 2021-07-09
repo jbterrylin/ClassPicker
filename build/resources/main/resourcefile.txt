@@ -1,0 +1,36 @@
+Cheat Sheet
+https://blog.kotlin-academy.com/kotlin-cheat-sheet-1137588c75a
+
+combination without repeat algorithm
+https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
+https://www.geeksforgeeks.org/combinations-with-repetitions/
+
+Cartesian Product (list * list)
+https://stackoverflow.com/questions/46895140/how-to-perform-action-for-all-combinations-of-elements-in-lists
+
+combinationUtil explanation
+    /* arr[]  ---> Input Array
+    data[] ---> Temporary array to store current combination
+    start & end ---> Staring and Ending indexes in arr[]
+    index  ---> Current index in data[]
+    r ---> Size of a combination to be printed */
+
+    // Current combination is ready to be printed, print it
+    if (index == r) {...
+
+   // replace index with all possible elements. The condition
+   // "end-i+1 >= r-index" makes sure that including one element
+   // at index will make a combination with remaining elements
+   // at remaining positions
+   var i = start...
+
+// output file and folder
+https://zetcode.com/kotlin/writefile/
+https://stackoverflow.com/questions/60004199/creating-a-folder-in-kotlin
+
+// csv shit
+https://grokonez.com/kotlin/kotlin-read-write-csv-file-example
+
+// if meet this error
+error: RPC failed; curl 56 OpenSSL SSL_read: Connection was reset, errno 10054
+solve command: git config http.postBuffer 524288000

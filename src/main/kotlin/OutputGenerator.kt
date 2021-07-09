@@ -87,11 +87,12 @@ class OutputGenerator(private var subjects: MutableList<Subject>, private var ti
             fileWriter.append("\n")
 
             for (times in timeList!!.withIndex()) {
+                times.value.sortBy { it.startTime }
                 val timeMap = times.value.groupBy { it.day }
 
                 fileWriter.append(times.index.toString())   // file Id
                 fileWriter.append(',')
-                fileWriter.append("\"" + timeMap.size.toString() + "=" + timeMap.keys.toString() +"\"")  // days
+                fileWriter.append("\"" + timeMap.size.toString() + "=" + timeMap.keys.sorted().toString() +"\"")  // days
                 fileWriter.append(',')
                 fileWriter.append("In progress")    // duration
                 fileWriter.append(',')
@@ -156,15 +157,16 @@ class OutputGenerator(private var subjects: MutableList<Subject>, private var ti
             val outputFile = File("$folderPath/$folderName/${times.index}.txt")
 
             outputFile.printWriter().use { out ->
-                out.println(times.value.map { it.subjectCode }.distinct().toString() + "\n")
+                out.println(times.value.map { it.subjectCode }.distinct().toString())
+                out.println(times.value.map { subjects.find { it1-> it1.code == it.subjectCode }?.name ?:"Error" }.distinct().toString() + "\n")
                 for(subjects in times.value.groupBy { it.subjectCode }) {
                     out.println(subjects.key + "=" + subjects.value.map { it.code })
                 }
                 out.println("")
 
-                for(time in times.value.groupBy { it.day }) {
+                for(time in times.value.groupBy { it.day }.toSortedMap()) {
                     out.println(time.key.toString())
-                    time.value.forEach {
+                    time.value.sortedBy { it.startTime }.forEach {
                         out.println(it.subjectCode + " " + it.code + " " +  it.startTime + "-" +  it.endTime)
                     }
                     out.println("")
